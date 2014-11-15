@@ -1,0 +1,50 @@
+<ol class="breadcrumb">
+	<li><%= link_to 'Stores', workspace_stores_path %></li>
+	<li><%= @store.name %></li>
+</ol>
+
+<h2>Información</h2>
+<%= form_for :store, url: workspace_store_path(Base64.urlsafe_encode64 @store.id.to_s), method: :put, :html => { :class => 'form-horizontal' } do |form| %>
+
+	<fieldset>
+		<div class="form-group">
+			<%= form.label :name, 'Nombre', :class => 'col-lg-2 control-label' %>
+			<div class="col-lg-10">
+				<%= form.text_field :name, class: 'form-control', disabled: true %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= form.label :image, 'Imagen', :class => 'col-lg-2 control-label' %>
+			<div class="col-lg-2">
+				<%= image_tag @store.image.url(:thumb), :size => '64x64' %>
+			</div>
+			<div class="col-lg-8">
+				<%= form.file_field :image %>
+	      	</div>
+	    </div>
+	    <div class="form-group">
+      		<div class="col-lg-10 col-lg-offset-2">
+        		<!--<button class="btn btn-default">Cancelar</button>-->
+
+        		<button type="submit" class="btn btn-primary">Actualizar</button>
+      		</div>
+    	</div>
+	</fieldset>
+	
+<% end %>
+
+<h2>Status</h2>
+<div class="row">
+	<div class="col-md-6">
+		<table class="table table-condensed">
+			<tr>
+				<th># Beacons</th>
+				<td><%= @store.beacons.count %></td>
+			</tr>
+			<tr>
+				<th># Ads</th>
+				<td><%= link_to @store.ads.count, workspace_store_ads_path(Base64.urlsafe_encode64 @store.id.to_s) %></td>
+			</tr>
+		</table>
+	</div>
+</div>

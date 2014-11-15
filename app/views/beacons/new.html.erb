@@ -1,0 +1,20 @@
+<%= form_for :beacon, url: beacons_path do |f| %>
+  <p>
+    <%= f.label :uuid %><br>
+    <%= f.text_field :uuid %>
+  </p>
+ 
+  <p>
+    <%= f.label :major %><br>
+    <%= f.text_area :major %>
+  </p>
+
+  <p>
+    <%= f.label :minor %><br>
+    <%= f.text_area :minor %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

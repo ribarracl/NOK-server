@@ -1,0 +1,37 @@
+<ol class="breadcrumb">
+	<li><%= link_to 'Stores', workspace_stores_path %></li>
+	<li><a href="<%= workspace_store_path(Base64.urlsafe_encode64 @store.id.to_s) %>"><%= @store.name %></a></li>
+	<li class="active">Ads</li>
+</ol>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-condensed table-hover">
+			<tr>
+				<th class="col-md-1">ID</th>
+				<th class="col-md-1">Nombre</th>
+				<th class="col-md-4">Descripción</th>
+				<th class="col-md-1">Expiración</th>
+				<th class="col-md-1">Imagen</th>
+<!--				<th>Imag</th>-->
+				<th class="col-md-2">Fecha registro</th>
+				<th class="col-md-1">&nbsp;</th>
+			</tr>
+		<% @ads.each do |ad|
+			kls = ''
+			kls = 'success' if ad.active?
+			kls = 'warning' if ad.expires < Time.now
+		%>
+			<tr>
+				<td class="<%= kls %>"><%= ad.id %></td>
+				<td><%= ad.name %></td>
+				<td><%= truncate ad.description, :length => 160 %></td>
+				<td><%= ad.expires.strftime('%d/%m/%Y') %></td>
+				<td><%= link_to image_tag(ad.image.url(:thumb), :size => '64x64'), ad.image.url, target: :blank %></td>
+				<td><%= ad.created_at.strftime('%R %d/%m/%Y') %></td>
+				<td><a href="#">desactivar</a></td>
+			</tr>
+		<% end %>
+		</table>
+	</div>
+</div>
+<%= link_to "Crear promoción", new_workspace_store_ad_path(Base64.urlsafe_encode64 @store.id.to_s) %>

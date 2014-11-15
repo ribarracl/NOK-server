@@ -1,0 +1,30 @@
+<h1>Beacons</h1>
+<div class="row">
+	<div class="col-md-8">
+		<table class="table table-condensed table-hover">
+			<tr>
+				<th>ID</th>
+				<th>UUID</th>
+				<th>Major</th>
+				<th>Minor</th>
+				<th>Store</th>
+				<th>Fecha registro</th>
+			</tr>
+			<% @beacons.each do |beacon| %>
+			<tr>
+				<td><%= beacon.id %></td>
+				<td><%= beacon.uuid %></td>
+				<td><%= beacon.major %></td>
+				<td><%= beacon.minor %></td>
+				<td>
+				<% if beacon.active_store %>
+					<%= beacon.active_store.name %>
+				<% else %>
+					&nbsp;
+				<% end %>
+				<td><%= beacon.created_at.localtime %></td>
+			<% end %>
+			</tr>
+		</table>
+	</div>
+</div>

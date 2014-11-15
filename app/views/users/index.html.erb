@@ -1,0 +1,21 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		$.get('/users/data', function(data)
+		{
+			var data = google.visualization.arrayToDataTable(data);
+			var options = {
+				title: 'registro usuarios por día',
+				//hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+			};
+
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+			chart.draw(data, options);
+		});
+	}
+</script>
+<h1>Insights</h1>
+<div id="chart_div" style="width: 100%; height: 500px;"></div>
